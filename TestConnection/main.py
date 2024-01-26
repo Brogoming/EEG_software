@@ -1,6 +1,6 @@
 import time
 
-from brainflow.board_shim import BoardShim, BrainFlowInputParams, BoardIds, BrainFlowPresets
+from brainflow import BoardShim, BrainFlowInputParams, BoardIds, BrainFlowPresets
 
 
 def main():
