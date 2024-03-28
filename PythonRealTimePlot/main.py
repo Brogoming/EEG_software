@@ -1,4 +1,3 @@
-import argparse
 import logging
 
 import pyqtgraph as pg
@@ -45,7 +44,7 @@ class Graph:
     def update(self):
         data = self.board_shim.get_current_board_data(self.num_points)
         for count, channel in enumerate(self.exg_channels):
-            # plot timeseries
+            # plot time series
             DataFilter.detrend(data[channel], DetrendOperations.CONSTANT.value)
             DataFilter.perform_bandpass(data[channel], self.sampling_rate, 3.0, 45.0, 2,
                                         FilterTypes.BUTTERWORTH_ZERO_PHASE, 0)
@@ -62,39 +61,9 @@ def main():
     BoardShim.enable_dev_board_logger()
     logging.basicConfig(level=logging.DEBUG)
 
-    # parser = argparse.ArgumentParser()
-    # # use docs to check which parameters are required for specific board, e.g. for Cyton - set serial port
-    # parser.add_argument('--timeout', type=int, help='timeout for device discovery or connection', required=False,
-    #                     default=0)
-    # parser.add_argument('--ip-port', type=int, help='ip port', required=False, default=0)
-    # parser.add_argument('--ip-protocol', type=int, help='ip protocol, check IpProtocolType enum', required=False,
-    #                     default=0)
-    # parser.add_argument('--ip-address', type=str, help='ip address', required=False, default='')
-    # parser.add_argument('--serial-port', type=str, help='serial port', required=False, default='')
-    # parser.add_argument('--mac-address', type=str, help='mac address', required=False, default='')
-    # parser.add_argument('--other-info', type=str, help='other info', required=False, default='')
-    # parser.add_argument('--streamer-params', type=str, help='streamer params', required=False, default='')
-    # parser.add_argument('--serial-number', type=str, help='serial number', required=False, default='')
-    # parser.add_argument('--board-id', type=int, help='board id, check docs to get a list of supported boards',
-    #                     required=False, default=BoardIds.SYNTHETIC_BOARD)
-    # parser.add_argument('--file', type=str, help='file', required=False, default='')
-    # parser.add_argument('--master-board', type=int, help='master board id for streaming and playback boards',
-    #                     required=False, default=BoardIds.NO_BOARD)
-    # args = parser.parse_args()
-
     params = BrainFlowInputParams()
     params.serial_port = "COM4"
     board_id = BoardIds.CYTON_DAISY_BOARD.value
-    # params.ip_port = args.ip_port
-    # params.serial_port = args.serial_port
-    # params.mac_address = args.mac_address
-    # params.other_info = args.other_info
-    # params.serial_number = args.serial_number
-    # params.ip_address = args.ip_address
-    # params.ip_protocol = args.ip_protocol
-    # params.timeout = args.timeout
-    # params.file = args.file
-    # params.master_board = args.master_board
 
     # board_shim = BoardShim(args.board_id, params)
     board_shim = BoardShim(board_id, params)
